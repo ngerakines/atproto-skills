@@ -1,0 +1,55 @@
+# <Language> — <task name, e.g. parsing / construction / signing>
+
+<!--
+One of these per (language, task) pair. File name must MATCH across languages
+so the router's reading guide works. For example, if Rust has a `parsing.md`,
+TypeScript and Go must too.
+
+Inside:
+  • Lead with the one-line job this file covers.
+  • Link up to `../shared/<spec-file>.md` once, then get concrete.
+  • Show the minimum viable snippet before the edge cases.
+  • Name the functions, not just the concepts — agents lift these verbatim.
+
+Landed examples:
+  skills/atproto-cid/rust/parsing.md
+  skills/atproto-cid/typescript/parsing.md
+  skills/atproto-cid/go/parsing.md
+-->
+
+One-line statement of what this file teaches.
+
+## The <canonical API> call
+
+```<lang>
+<minimum snippet>
+```
+
+Explain what each line does. Call out any gotcha that doesn't appear in shared/.
+
+## Common variations
+
+- Input is a <variant A> → use `<function>`.
+- Input is a <variant B> → use `<function>`.
+- Output needs to be <form C> → convert via `<function>`.
+
+## Validation vs verification
+
+If both concepts apply to this task, spell out which call does which. Conflating them is almost always the first bug.
+
+## Error model
+
+How the library reports failure in this language (typed errors, exceptions, nil + ok, Result, …). What the common error messages are. How to distinguish "bad input" from "bug in my code".
+
+## Common pitfalls
+
+Things that bite in THIS language specifically. Link to `../shared/divergence-matrix.md` for the cross-language view.
+
+- <Pitfall>
+- <Pitfall>
+
+## See also
+
+- `README.md` — library setup and idioms for this language.
+- `../shared/<spec-file>.md` — normative rules.
+- `../shared/divergence-matrix.md` — how this language compares.

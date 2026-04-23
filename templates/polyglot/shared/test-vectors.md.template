@@ -1,0 +1,38 @@
+# <Topic> — test vectors
+
+<!--
+Fixtures that every language implementation must produce or accept. Used for:
+
+  1. Cross-language agreement tests.
+  2. Regression anchors — a vector landing here is a contract.
+  3. Onboarding: "does my new parser round-trip this vector?"
+
+Prefer small, self-contained vectors with expected bytes spelled out.
+Link to a canonical upstream source when one exists; don't invent.
+
+Landed examples to mirror:
+  skills/atproto-cid/shared/test-vectors.md
+  skills/atproto-repository/shared/test-vectors.md
+-->
+
+## Source of truth
+
+Where these vectors come from (upstream spec fixture, reference implementation test suite, hand-computed with a trusted tool). If you generate them locally, name the script.
+
+## Vectors
+
+### V1 — <short name>
+
+- Input: …
+- Expected output: …
+- Notes: …
+
+### V2 — <short name>
+
+- Input: …
+- Expected output: …
+- Notes: …
+
+## How to use
+
+One-paragraph guide for somebody writing tests in a new language: which vector to start with, which one exercises the most edge cases, which one is the regression canary.

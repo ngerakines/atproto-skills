@@ -1,0 +1,52 @@
+# <Topic> — language-neutral spec
+
+<!--
+This file is the NORMATIVE reference for <topic>. What every implementation
+must enforce, regardless of language. If something can be derived from this
+file by a careful reader with a CBOR / byte-layout reference in hand, it
+does NOT belong in the per-language files — link back here instead.
+
+Keep it short and precise. Prose over code. Where a byte layout matters,
+favor a side-by-side diagram over a paragraph.
+
+Landed examples to mirror:
+  skills/atproto-cid/shared/spec.md
+  skills/atproto-repository/shared/drisl.md
+  skills/atproto-repository/shared/commit-and-signing.md
+-->
+
+## What this is
+
+One paragraph: the primitive, where it appears in the AT Protocol stack, and what bounds are baked in (version numbers, codec constants, max sizes).
+
+## Normative rules
+
+Numbered list. Each rule testable in isolation. Example shape:
+
+1. **<Rule name>** — exact requirement. Reference the source spec section.
+2. **<Rule name>** — exact requirement.
+3. …
+
+## Binary layout
+
+Where bytes matter, show the layout:
+
+```
+offset  size   field                example
+------  ----   -------------------- -------------------------
+0       1      <field>              0x01
+1       1      <field>              0x71
+…
+```
+
+## Rejection conditions
+
+Every condition that MUST cause a parser / validator to reject input. Agents implementing this should use this list as their unit test matrix.
+
+- <Condition>
+- <Condition>
+- …
+
+## Test vectors
+
+Link to `test-vectors.md`. Don't inline fixtures here.

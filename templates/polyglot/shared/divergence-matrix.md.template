@@ -1,0 +1,55 @@
+# Cross-language divergences — <topic>
+
+<!--
+This file is the INTEROP PIVOT for the skill. Every per-language file should
+link here instead of restating differences. Two readers use it:
+
+  1. Someone porting code from one language to another.
+  2. Someone debugging why bytes produced in language A don't parse / verify
+     in language B.
+
+Write from that audience's perspective. Be concrete. Name libraries, function
+names, wire-level behavior, and the date or version the observation was made.
+
+Landed examples to mirror:
+  skills/atproto-cid/shared/divergence-matrix.md
+  skills/atproto-repository/shared/divergence-matrix.md
+-->
+
+## Library map
+
+| Concern                  | Rust                        | TypeScript                   | Go                           |
+| ------------------------ | --------------------------- | ---------------------------- | ---------------------------- |
+| <Primary library>        | `<crate>`                   | `<pkg>`                      | `<module>`                   |
+| <Supporting library>     | `<crate>`                   | `<pkg>`                      | `<module>`                   |
+| <Test vectors / fixtures>| `<where>`                   | `<where>`                    | `<where>`                    |
+
+## §<axis-name> — e.g. encoding / parsing / signing / error-model
+
+| Aspect                       | Rust                        | TypeScript                   | Go                           |
+| ---------------------------- | --------------------------- | ---------------------------- | ---------------------------- |
+| <Concrete behavior question> | <Answer>                    | <Answer>                     | <Answer>                     |
+| <…>                          | <…>                         | <…>                          | <…>                          |
+
+**Practical bug:** one-paragraph callout. The specific failure mode this axis causes when ported carelessly, and the symptom the caller will see (error message, silent mismatch, etc.).
+
+## §<next axis>
+
+…
+
+## Order of surprises when porting
+
+Rank the divergences by how often they bite in practice. Someone skimming this
+list should get a warning about the traps before they open any `{lang}/*.md`.
+Each entry one line; link to the full row above.
+
+1. **<Biggest gotcha>** — one-line hook.
+2. **<Next>** — one-line hook.
+3. …
+
+## How to use this matrix during interop review
+
+- Signing / verification broken across stacks → start with §<signing-axis>.
+- Bytes differ round-trip → start with §<encoding-axis>.
+- Error message only appears in one language → start with §<error-model-axis>.
+- Library "should work the same" but doesn't → grep here first before debugging.

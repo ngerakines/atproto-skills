@@ -1,0 +1,69 @@
+# <Language> — <topic> library setup and idioms
+
+<!--
+One of these per supported language. Drop into:
+
+  skills/<name>/rust/README.md
+  skills/<name>/typescript/README.md
+  skills/<name>/go/README.md
+
+This file orients a reader who has landed in this language's directory. It is
+NOT the full procedure — that lives in sibling task files (parsing.md,
+construction.md, etc.). Match filenames across languages so cross-references
+work.
+
+Landed examples to mirror:
+  skills/atproto-cid/{rust,typescript,go}/README.md
+  skills/atproto-repository/{rust,typescript,go}/README.md
+-->
+
+## Library choice
+
+What the official / canonical library is, and why. Link to the repo or registry. If there is a second-best option, say so and say when to reach for it.
+
+## Installation
+
+The exact dependency fragment. For Rust, a `Cargo.toml` snippet. For TypeScript, a `package.json` / `npm install` line. For Go, a `go get` line plus the import path.
+
+```<lang>
+<installation snippet>
+```
+
+## Public surface at a glance
+
+The handful of functions / types a caller touches most. One line each. Not a full API tour — that's what docs.rs / npm / pkg.go.dev are for.
+
+- `<symbol>` — what it does.
+- `<symbol>` — what it does.
+- …
+
+## Typical wiring
+
+A short code sketch showing how the pieces fit for the 80% case. 10–20 lines max. If it's longer, the language probably has a higher-level helper you missed.
+
+```<lang>
+<wiring sketch>
+```
+
+## Idioms specific to this language
+
+The ergonomic quirks that don't appear in `shared/spec.md` but every caller trips on:
+
+- <Async vs sync, method vs property, ownership / borrow traps, error model, …>
+- <…>
+
+Link to `../shared/divergence-matrix.md` for comparison against the other languages.
+
+## File map
+
+| Task                   | File                    |
+| ---------------------- | ----------------------- |
+| <Task A>               | `<task-a>.md`           |
+| <Task B>               | `<task-b>.md`           |
+| <Task C>               | `<task-c>.md`           |
+
+## See also
+
+- `../shared/spec.md` — normative rules.
+- `../shared/divergence-matrix.md` — how <language> differs from the others.
+- Upstream docs: <link>

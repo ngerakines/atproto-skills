@@ -1,0 +1,12 @@
+{
+  "name": "atproto-skills",
+  "description": "ATProtocol-specific skills for Claude Code: lexicon design, DID resolution, XRPC, DAG-CBOR, MST/repo inspection, OAuth flows, record parsing. Use when the user is working with Bluesky, at:// URIs, com.atproto.*, app.bsky.*, or any AT Protocol concept.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Nick Gerakines",
+    "email": "nick.gerakines@gmail.com"
+  },
+  "homepage": "https://github.com/ngerakines/atproto-skills",
+  "repository": "https://github.com/ngerakines/atproto-skills",
+  "license": "MIT"
+}

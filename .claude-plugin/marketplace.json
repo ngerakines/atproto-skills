@@ -1,0 +1,27 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "atproto-skills",
+  "metadata": {
+    "description": "ATProtocol-specific skills for Claude Code. A growing collection of skills covering lexicons, DIDs, XRPC, DAG-CBOR, MST/repo inspection, OAuth, and more."
+  },
+  "owner": {
+    "name": "Nick Gerakines",
+    "email": "nick.gerakines@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "atproto-skills",
+      "description": "ATProtocol-specific skills for Claude Code: lexicon design, DID resolution, XRPC, DAG-CBOR, MST/repo inspection, OAuth flows, record parsing. Use when the user is working with Bluesky, at:// URIs, com.atproto.*, app.bsky.*, or any AT Protocol concept.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Nick Gerakines",
+        "email": "nick.gerakines@gmail.com"
+      },
+      "source": "./",
+      "category": "development",
+      "homepage": "https://github.com/ngerakines/atproto-skills",
+      "license": "MIT",
+      "tags": ["atproto", "bluesky", "did", "xrpc", "lexicon", "dag-cbor", "oauth", "skills"]
+    }
+  ]
+}

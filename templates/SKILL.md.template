@@ -1,0 +1,80 @@
+---
+name: REPLACE-WITH-KEBAB-NAME
+description: REPLACE — one paragraph, third-person, that tells Claude WHEN to trigger this skill. Name the concrete ATProto terms it handles (e.g. "DID document", "lexicon", "at:// URI", "com.atproto.repo.*", "XRPC"), the user phrases it should fire on, and what it does NOT cover so adjacent skills aren't shadowed.
+version: 0.1.0
+---
+
+# REPLACE — Skill Title
+
+<!--
+Which template should I use?
+
+  Use THIS template (SKILL.md.template) when the skill's guidance is
+  substantially the same across any language or ecosystem it applies to —
+  e.g. a lexicon-design checklist, an OAuth flow walkthrough, a record-shape
+  reference. A single SKILL.md + references/ is the right shape.
+
+  Use POLYGLOT-SKILL.md.template when the skill's CORE TOPIC is
+  language-neutral (a spec, a wire format, a primitive) but the IDIOMS diverge
+  meaningfully across ecosystems (CIDs, DAG-CBOR, repo/MST/CAR, XRPC clients,
+  OAuth in Rust vs TS vs Go). That template uses a thin SKILL.md router plus
+  a `shared/` peer and `{lang}/` siblings. Landed examples to copy from:
+
+    skills/atproto-cid/
+    skills/atproto-identity-resolution/
+    skills/atproto-repository/
+
+  Rationale for the polyglot split: .context/attachments/pasted_text_2026-04-21_12-28-08.txt
+  plus CLAUDE.md §1 "Polyglot skills (optional shape)".
+
+Skill layout conventions (enforced by convention, not by tooling):
+
+  skills/<name>/
+  ├── SKILL.md          ← this file. Keep the body under ~500 lines.
+  ├── references/       ← long-form material loaded on demand (specs, examples,
+  │                       reference tables). SKILL.md should LINK into this.
+  ├── scripts/          ← deterministic helpers Claude runs rather than reasoning
+  │                       through (e.g. validators, parsers, generators).
+  └── assets/           ← templates or boilerplate copied into user outputs.
+                          NOT loaded into context.
+
+  Frontmatter:
+    name         required  Must match the directory name exactly. kebab-case.
+    description  required  The trigger mechanism — see CLAUDE.md for guidance.
+    version      optional  Semver is conventional.
+-->
+
+## When to use
+
+One to three sentences on the concrete situations that should pull in this
+skill. Mirror the language a user would actually type ("I'm getting a CBOR
+decode error…", "how do I resolve a did:web?").
+
+## What this skill provides
+
+Bulleted list of the specific capabilities — workflows, checks, generators,
+references — this skill contributes. Keep it tight; detail lives in the
+sections below.
+
+## Procedure
+
+Numbered, step-by-step instructions for the main task. Favor explicit steps
+over prose. If a step calls an MCP tool (`lexicon-garden`, `atpmcp`, etc.),
+name the tool and the parameters.
+
+1. …
+2. …
+3. …
+
+## References
+
+Point at files in `references/` rather than inlining long content. Example:
+
+- `references/did-plc-spec-excerpt.md` — the relevant parts of the did:plc
+  spec for resolution.
+- `references/example-records.json` — canonical record shapes.
+
+## Examples
+
+Short, concrete before/after or input/output examples. If examples get long,
+move them into `references/` and link from here.

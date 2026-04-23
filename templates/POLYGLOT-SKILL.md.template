@@ -1,0 +1,151 @@
+---
+name: REPLACE-WITH-KEBAB-NAME
+description: REPLACE — one paragraph, third-person, naming the concrete ATProto terms the skill handles AND the supported languages (e.g. "in Rust, TypeScript, or Go"). Include user phrases it should fire on, library and import names for every supported language ("multiformats", "go-cid", "atproto-dasl"), common error strings, and what it does NOT cover so adjacent skills aren't shadowed. Description is the ONLY trigger signal — err on keyword-dense over terse.
+version: 0.1.0
+---
+
+# REPLACE — Skill Title
+
+<!--
+This is the POLYGLOT router template. Use it when the topic is language-neutral
+but the idioms diverge meaningfully across ecosystems. For a single-language or
+language-agnostic skill, use SKILL.md.template instead.
+
+Target layout for a polyglot skill (copy this into place):
+
+  skills/<name>/
+  ├── SKILL.md          ← this file — thin router, ≤~150 lines.
+  ├── shared/           ← PEER to the language dirs (not under references/).
+  │                       Normative spec, binary layouts, test vectors,
+  │                       divergence matrix. Language-neutral only.
+  ├── rust/             ← one sibling per supported language. MATCH filenames
+  │   ├── README.md       across language dirs so cross-references line up:
+  │   ├── <topic>.md      rust/<topic>.md ↔ typescript/<topic>.md ↔ go/<topic>.md
+  │   └── …
+  ├── typescript/
+  │   └── …
+  └── go/
+      └── …
+
+Landed polyglot skills to mirror (read one before filling this in):
+
+  skills/atproto-cid/              — CID parsing/construction, scripts/ present
+  skills/atproto-identity-resolution/ — handle↔DID resolution
+  skills/atproto-repository/       — CAR + MST + commit signing
+
+Rules the router must honor:
+
+  • SKILL.md is a ROUTER, not a tutorial. Defaults, language detection,
+    reading guide, cross-language hazards. Procedure lives in {lang}/*.md.
+  • shared/ is PEER to {lang}/. Never nest it under references/.
+  • EVERY supported language gets a README.md plus the topical task files.
+    Match filenames across languages or the reading guide breaks.
+  • shared/divergence-matrix.md is the interop pivot. Per-language files link
+    back to it rather than restating differences.
+  • If a language can't be supported yet, say so and point at shared/spec.md
+    plus a reference implementation to transliterate from.
+
+Original research guidance for this pattern:
+  .context/attachments/pasted_text_2026-04-21_12-28-08.txt
+And CLAUDE.md §1 "Polyglot skills (optional shape)".
+-->
+
+One-paragraph framing: what this primitive is, why it exists in AT Protocol, and that this skill routes to per-language guides for <Rust, TypeScript, Go> on top of a language-neutral spec in `shared/`.
+
+## Defaults
+
+The invariants that hold in EVERY supported language. Anything caller code or generated code must obey regardless of stack. Keep this to 3–6 bullets. Example shape:
+
+- **<Format name>** — one-line normative rule. Link to `shared/<file>.md` for the full rule.
+- **<Codec / algorithm>** — one-line rule with the exact constants.
+- **<Key edge case>** — the thing that bites everyone once.
+
+Full normative rules: `shared/<spec-file>.md`. Fixtures: `shared/test-vectors.md`. Cross-language differences: `shared/divergence-matrix.md`.
+
+## Language detection
+
+Before generating or reviewing any <topic> code, determine the target language from project files or the file being edited:
+
+- `Cargo.toml`, `*.rs`, imports of `<rust-crate-name>` → **Rust** — read from `rust/`.
+- `package.json`, `tsconfig.json`, `*.ts`, `*.tsx`, imports of `<ts-pkg-name>` → **TypeScript** — read from `typescript/`. Also `*.js`/`*.jsx` when there is no `.ts` present.
+- `go.mod`, `*.go`, imports of `<go-module-path>` → **Go** — read from `go/`.
+
+Prefer the *file being edited* over the *repo root* when they disagree: a `.go` consumer inside a TypeScript-workspace monorepo still means Go for that task.
+
+If multiple languages are present and the task does not point at one unambiguously, **ask which one applies**. Never mix libraries across languages in generated code.
+
+If an unsupported language is detected (Python, Java, Swift, …), point the user at `shared/<spec-file>.md` for the wire format and offer <the most complete reference impl, usually Go or Rust> as something to transliterate from.
+
+## Reading guide
+
+For every <topic> task:
+
+1. Read the relevant `shared/*.md` first. They are short and define the rules your code must enforce.
+2. Read the relevant task file in the detected language directory:
+   - <Task A, e.g. parsing> → `{lang}/<file>.md`
+   - <Task B, e.g. construction> → `{lang}/<file>.md`
+   - <Task C> → `{lang}/<file>.md`
+   - Library setup, public API at a glance, idioms → `{lang}/README.md`
+3. Consult `shared/divergence-matrix.md` whenever porting between languages or reviewing cross-stack interop.
+
+Always prefer the official library over hand-rolling: `<rust-crate>` in Rust, `<ts-pkg>` in TypeScript, `<go-module>` in Go.
+
+## Architecture (shared concepts)
+
+One-screen conceptual stack — an ASCII diagram, a layered list, or a short narrative — that lets Claude reason about the pieces without cracking open `shared/`. Anchors the language-specific files. Keep this purely conceptual; don't drift into per-language API names.
+
+## Cross-language hazards to flag up front
+
+High-frequency failure modes; full detail in `shared/divergence-matrix.md`. Short entries, one line of context each. Examples of what belongs here (from real landed skills):
+
+- **<Library X> verifies <thing> on ingest by default; Y and Z do not.** A blob that Y/Z accepts may fail X intake if corrupted.
+- **<Language> <API> is immutable; the others mutate in place.** Port-and-paste hazard.
+- **<Codec constant> is shipped only in <language>.** Others must import or hand-roll.
+- **<Wire field> omitted vs null divergence.** Signatures produced by one impl may not verify through another.
+- **<Algorithm> behavior differs on <edge case>.**
+
+These live in the router because they are trigger-time context — Claude needs them before opening any `{lang}/*.md`.
+
+## Tools you can call
+
+Prefer these MCP tools when the goal is to *compute* or *validate* rather than teach an implementation how:
+
+- **`lexicon-garden`** → `<relevant tool calls>`.
+- **`atpmcp`** → `<relevant tool calls>`.
+
+If `scripts/` ships with this skill, describe the CLI entry points here with exit-code semantics. Scripts should be Python 3 / bash only, no non-stdlib deps, no network, fast.
+
+## Directory layout
+
+```
+<skill-name>/
+├── SKILL.md                          # this file — router
+├── shared/
+│   ├── <spec-file>.md                # normative rules
+│   ├── test-vectors.md               # fixtures
+│   └── divergence-matrix.md          # cross-language differences
+├── rust/
+│   ├── README.md                     # crate setup, idioms
+│   ├── <task-a>.md
+│   ├── <task-b>.md
+│   └── <task-c>.md
+├── typescript/
+│   ├── README.md
+│   ├── <task-a>.md
+│   ├── <task-b>.md
+│   └── <task-c>.md
+└── go/
+    ├── README.md
+    ├── <task-a>.md
+    ├── <task-b>.md
+    └── <task-c>.md
+```
+
+## References
+
+Everything below is reachable from the tree above. Listed here for quick grep:
+
+- `shared/<spec-file>.md`, `shared/test-vectors.md`, `shared/divergence-matrix.md`
+- `rust/README.md`, `rust/<task-a>.md`, `rust/<task-b>.md`, `rust/<task-c>.md`
+- `typescript/README.md`, `typescript/<task-a>.md`, `typescript/<task-b>.md`, `typescript/<task-c>.md`
+- `go/README.md`, `go/<task-a>.md`, `go/<task-b>.md`, `go/<task-c>.md`
